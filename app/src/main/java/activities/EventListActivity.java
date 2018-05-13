@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import jd.dispatchmk2.R;
@@ -80,7 +81,10 @@ public class EventListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode ==  NEW_EVENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Event event = new Event(data.getStringExtra(LogEventActivity.EXTRA_REPLY), "is now");
+            // TODO: 5/12/18 Validate addresses 
+            // actual event start date via https://docs.oracle.com/javase/8/docs/api/java/time/OffsetDateTime.html
+            // see:  https://medium.com/@chrisbanes/room-time-2b4cf9672b98
+            Event event = new Event(data.getStringExtra(LogEventActivity.EXTRA_REPLY), OffsetDateTime.now());
             mEventViewModel.insert(event);
         } else {
             Toast.makeText(getApplicationContext(), "empty address not saved", Toast.LENGTH_LONG).show();

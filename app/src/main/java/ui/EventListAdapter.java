@@ -46,7 +46,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
     public void setEvents(List<Event> events) {
         mEvents = events;
-        notifyDataSetChanged(); // TODO: 5/2/18 I'm under the impression that this notifies an observer. check and make sure that's accurate.
+        notifyDataSetChanged();
     }
 
     @Override

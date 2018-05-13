@@ -29,7 +29,7 @@ public class EventRepository {
 
         @Override
         protected Void doInBackground(final Event... params) {
-            mAsyncEventDao.insert(params[0]); // TODO: 5/2/18 why is params an array here. understand this.
+            mAsyncEventDao.insert(params[0]);
             return null;
         }
     }

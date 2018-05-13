@@ -3,6 +3,9 @@ package models
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.TypeConverter
+
+import java.time.OffsetDateTime
 
 /**
  * Created by jd on 3/13/18.
@@ -17,9 +20,24 @@ data class Event(
         var address: String?,
 
         @field:ColumnInfo(name = "event_start_date")
-        var startDate: String?
-        // TODO: 3/13/18 JD convert this to a sql friendly date object?? https://medium.com/@chrisbanes/room-time-2b4cf9672b98
+        var startDate: OffsetDateTime? = null
 ){
-        constructor(newEventAddress: String, newEventDate: String):this(null, newEventAddress, newEventDate)
+        constructor(newEventAddress: String, newEventDate: OffsetDateTime):this(null, newEventAddress, newEventDate)
         constructor():this(null, null, null)
+}
+
+object EventTypeConverters {
+        @TypeConverter
+        @JvmStatic
+        fun toOffsetDateTime(value: String?): OffsetDateTime? {
+                return value?.let {
+                        return OffsetDateTime.parse(value)
+                }
+        }
+
+        @TypeConverter
+        @JvmStatic
+        fun fromOffsetDateTime(date: OffsetDateTime?): String? {
+                return date?.toString()
+        }
 }
